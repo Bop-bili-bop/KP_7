@@ -18,4 +18,20 @@ double validate_double_input(const char *prompt, double min)
     while (input != 1 || value < min);
     return value;
 }
+double validate_char_input(char *prompt, char choice_1, char choice_2)
+{
+    char user_choice = 0;
+    do
+    {
+        printf("%s", prompt);
+        user_choice = getch();
+        if (user_choice != choice_1 && user_choice != choice_2)
+        {
+            printf("Invalid input.\n");
+        }
+        fflush(stdin);
+    }
+    while (user_choice != choice_1 && user_choice != choice_2);
+    return user_choice;
+}
 #endif
