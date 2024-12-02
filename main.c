@@ -24,22 +24,23 @@ int main()
                                                                 "Enter variables and accuracy\n");
                 a = validate_double_input("\na = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, is_zero);
                 b = validate_double_input("\nb = ", a, MAXIMUM_VARIABLE, is_zero);
-                t = validate_double_input("\nt = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, is_zero);
-                epsilon = validate_double_input("\naccuracy = ", MINIMUM_ACCURACY, MAXIMUM_ACCURACY, is_zero);
+                t = validate_double_input("\nt = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, any_number);
+                epsilon = validate_double_input("\naccuracy = ", MINIMUM_ACCURACY, MAXIMUM_ACCURACY, any_number);
                 break;
             case '2':
                 chosen_function = function2;
                 printf("\n---YOUR CHOSEN FUNCTION---\nsin(log(x)) - cos(log(x)) + t*log(x)\n"
                                                                 "Enter variables and accuracy");
-                a = validate_double_input("\na = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, is_zero);
-                b = validate_double_input("\nb = ", a, MAXIMUM_VARIABLE, is_zero);
-                t = validate_double_input("\nt = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, is_zero);
-                epsilon = validate_double_input("\naccuracy = ", MINIMUM_ACCURACY, MAXIMUM_ACCURACY, is_zero);
+                a = validate_double_input("\na = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, not_greater_than_zero);
+                b = validate_double_input("\nb = ", a, MAXIMUM_VARIABLE, not_greater_than_zero);
+                t = validate_double_input("\nt = ", MINIMUM_VARIABLE, MAXIMUM_VARIABLE, any_number);
+                epsilon = validate_double_input("\naccuracy = ", MINIMUM_ACCURACY, MAXIMUM_ACCURACY, any_number);
                 break;
             default:
                 printf("Error\n");
                 break;
         }
+        rewind(stdin);
         choice = validate_char_input("Press [1] (Half division method) or [2] (Newton method) to choose the method\n",
             '1', '2');
         switch (choice)
