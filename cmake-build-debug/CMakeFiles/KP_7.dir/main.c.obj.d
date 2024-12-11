@@ -16,5 +16,5 @@ CMakeFiles/KP_7.dir/main.c.obj: C:\Users\Kir\CLionProjects\KP_7_P\main.c \
  C:/Program\ Files/JetBrains/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/sec_api/conio_s.h \
  C:\Users\Kir\CLionProjects\KP_7_P\validation.h \
- C:\Users\Kir\CLionProjects\KP_7_P\calculation.h \
- C:/Program\ Files/JetBrains/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/math.h
+ C:/Program\ Files/JetBrains/CLion\ 2024.2.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
+ C:\Users\Kir\CLionProjects\KP_7_P\calculation.h

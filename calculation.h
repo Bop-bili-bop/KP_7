@@ -1,6 +1,11 @@
 #ifndef CALCULATION_H
 #define CALCULATION_H
 #include <math.h>
+
+#define STEP 1e-6
+#define MAX_ITER 1e6
+#define MIN_DERIVATIVE 1e-12
+
 double function1 (double x, double t)
 {
     return cos(t/x) - 2.0 * sin(1/x) + 1.0/x;
@@ -9,44 +14,74 @@ double function2 (double x, double t)
 {
     return sin(log(x)) - cos(log(x)) + t*log(x);
 }
-double half_division_method(double a, double b, double t, double epsilon, double x, double (*function)(double, double))
-{
+double half_division_method(double a, double b, double t, double epsilon, double (*function)(double, double)) {
     double delta = 0;
-    double product = 0;
-    int has_solution = 0;
-    do
-    {
+    int iterations = 0;
+    double x = 0, fa = 0, fx = 0;
+    do {
         x = (a + b) / 2.0;
         delta = fabs(b - a);
-        product = function(a, t) * function(x, t);
-        if (product > 0)
+
+        fa = function(a, t);
+        fx = function(x, t);
+
+        if (isnan(fa) || isnan(fx))
+        {
+            printf("Function has a discontinuity in the interval [%lf, %lf]. Skipping...\n", a, b);
+            return NAN;
+        }
+
+        if (fa * fx > 0)
         {
             a = x;
         }
         else
         {
             b = x;
-            has_solution++;
         }
-    }
-    while(delta > epsilon);
-    if (has_solution == 0) {
-        x = 0;
-    }
+
+        iterations++;
+        if (iterations > MAX_ITER)
+        {
+            printf("Maximum iterations reached. The method may not converge.\n");
+            return NAN;
+        }
+    } while (delta > epsilon);
+
     return x;
 }
-double newton_method(double a, double b, double t, double epsilon, double x, double (*function)(double, double))
-{
+
+double newton_method(double a, double b, double t, double epsilon, double (*function)(double, double)) {
     double delta = 0;
     double derivative = 0;
-    x = function(b, t);
-    do
-    {
-        derivative = function(x+a, t) - function(x, t) / a;
-        delta = function(x, t) / derivative;
+    int iterations = 0;
+
+    double x = (a + b) / 2.0;
+
+    do {
+        double fx = function(x, t);
+        if (isnan(fx))
+        {
+            printf("Function is undefined at x = %lf. Skipping...\n", x);
+            return NAN;
+        }
+        derivative = (function(x + STEP, t) - fx) / STEP;
+
+        if (fabs(derivative) < MIN_DERIVATIVE) {
+            printf("Derivative too small at x = %lf. The method may not converge.\n", x);
+            return NAN;
+        }
+        delta = fx / derivative;
         x -= delta;
-    }
-    while (fabs(delta)>epsilon);
+
+        iterations++;
+        if (iterations > MAX_ITER) {
+            printf("Maximum iterations reached. The method may not converge.\n");
+            return NAN;
+        }
+    } while (fabs(delta) > epsilon);
+
     return x;
 }
+
 #endif
