@@ -24,13 +24,13 @@ double validate_double_input(const char *prompt, double min, double max, char (*
     {
         printf("%s", prompt);
         input = scanf("%lf", &value);
-        if (input != 1 || value <= min || value > max || condition(value))
+        if (input != 1 || value < min || value > max || condition(value))
         {
             printf("Invalid input. Please enter a valid number.\n");
         }
         rewind(stdin);
     }
-    while (input != 1 || value <= min || value > max || condition(value));
+    while (input != 1 || value < min || value > max || condition(value));
     return value;
 }
 char validate_char_input(char *prompt, char choice_1, char choice_2)
